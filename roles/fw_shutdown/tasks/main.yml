@@ -1,0 +1,10 @@
+---
+# tasks file for fw_shutdown
+tasks:
+    - name: Issue firewall shutdown command
+      paloaltonetworks.panos.panos_op:
+        provider: '{{ device }}'
+        cmd: '<request><shutdown><system></system></shutdown></request>'
+        cmd_is_xml: true
+      register: "cmd_output"
+      failed_when: '"Command succeeded with no output" not in cmd_output.msg' # Always returns this error when succesful!
